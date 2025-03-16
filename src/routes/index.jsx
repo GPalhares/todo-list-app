@@ -2,22 +2,26 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import LoadingScreen from '../components/loadingScreen';
 
-// Páginas
 const Login = lazy(() => import('../pages/auth/login'));
 const Register = lazy(() => import('../pages/auth/register'));
-const Dashboard = lazy(() => import('../pages/dashboard'));
+const Tasks = lazy(() => import('../pages/dashboard/tasks'));
+const Backoffice = lazy(() => import('../pages/dashboard/backoffice'));
 const NotFound = lazy(() => import('../pages/notfound'));
 
 const routes = [
-  { path: '/auth/login', element: <Login /> },
-  { path: '/auth/register', element: <Register /> },
   {
-    path: '/dashboard',
-    element: (
-      <Suspense fallback={<LoadingScreen />}>
-        <Dashboard />
-      </Suspense>
-    ),
+    path: 'auth',
+    children: [
+      { path: 'login', element: <Login /> },
+      { path: 'register', element: <Register /> },
+    ],
+  },
+  {
+    path: 'dashboard',
+    children: [
+      { path: 'tasks/edit?/:taskId?', element: <Tasks /> },
+      { path: 'backoffice/edit?:userId?', element: <Backoffice /> },
+    ],
   },
   { path: '*', element: <NotFound /> },
 ];

@@ -1,0 +1,14 @@
+.card-with-shadow {
+    border: none;
+    min-width: 100vw;
+}
+
+@media (min-width: 576px) {
+    .card-with-shadow {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border: 1px solid #D9D9D9;
+        border-radius: 9px;
+        min-width: 576px;
+        max-width: 576px;
+    }
+}
