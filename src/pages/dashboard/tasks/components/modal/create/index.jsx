@@ -37,7 +37,9 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
                   type="text"
                   className="form-control border-2 rounded-3 p-3"
                   placeholder="Digite sua tarefa..."
-                  {...register('task', { required: 'A tarefa é obrigatória' })}
+                  {...register('description', {
+                    required: 'A tarefa é obrigatória',
+                  })}
                 />
               </div>
             </div>

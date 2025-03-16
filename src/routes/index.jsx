@@ -19,8 +19,8 @@ const routes = [
   {
     path: 'dashboard',
     children: [
-      { path: 'tasks/edit?/:taskId?', element: <Tasks /> },
-      { path: 'backoffice/edit?:userId?', element: <Backoffice /> },
+      { path: 'tasks/:taskId?', element: <Tasks /> },
+      { path: 'backoffice/:userId?', element: <Backoffice /> },
     ],
   },
   { path: '*', element: <NotFound /> },

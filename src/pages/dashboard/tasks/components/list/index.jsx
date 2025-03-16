@@ -26,7 +26,7 @@ export default function TaskList({
 
   const editTask = (taskId) => {
     setOpen('editTask');
-    // navigate(`edit/${taskId}`);
+    navigate(`${taskId}`);
   };
 
   return (
@@ -58,9 +58,9 @@ export default function TaskList({
         </p>
       ) : (
         <ul>
-          {filteredTasks.map((t) => (
+          {filteredTasks.map((task) => (
             <li
-              key={t.id}
+              key={task.id}
               className="list-group-item d-flex align-items-center justify-content-between py-1 px-5 rounded mb-2"
               style={{
                 backgroundColor: '#f1f1f1',
@@ -71,18 +71,20 @@ export default function TaskList({
                 <input
                   type="checkbox"
                   className="form-check-input me-3"
-                  checked={t.completed}
-                  onChange={() => toggleComplete(t.id)}
+                  checked={task.completed}
+                  onChange={() => toggleComplete(task.id)}
                 />
               </div>
 
               <div>
-                <div className="d-flex justify-content-left">{t.task}</div>
+                <div className="d-flex justify-content-left">
+                  {task.description}
+                </div>
                 <small className="text-muted">
-                  {isToday(new Date(t.createdAt))
-                    ? `Hoje às: ${format(new Date(t.createdAt), 'HH:mm')}`
+                  {isToday(new Date(task.createdAt))
+                    ? `Hoje às: ${format(new Date(task.createdAt), 'HH:mm')}`
                     : `Criada em: ${format(
-                        new Date(t.createdAt),
+                        new Date(task.createdAt),
                         'dd/MM/yyyy HH:mm'
                       )}`}
                 </small>
@@ -95,7 +97,7 @@ export default function TaskList({
                     border: 'none',
                     marginRight: '8px',
                   }}
-                  onClick={() => editTask(t.id)}
+                  onClick={() => editTask(task.id)}
                 >
                   <img
                     src="/assets/icons/pencil.svg"
@@ -109,7 +111,7 @@ export default function TaskList({
                     backgroundColor: 'transparent',
                     border: 'none',
                   }}
-                  onClick={() => deleteTask(t.id)}
+                  onClick={() => deleteTask(task.id)}
                 >
                   <img
                     src="/assets/icons/trash.svg"

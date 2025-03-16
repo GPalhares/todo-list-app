@@ -6,7 +6,14 @@ import CreateTask from './components/modal/create';
 import EditTask from './components/modal/edit';
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      description: 'asdasdas',
+      createdAt: '2025-03-16T23:02:07.516Z',
+      completed: false,
+    },
+  ]);
   const [open, setOpen] = useState(null);
 
   const toggleComplete = (id) => {
