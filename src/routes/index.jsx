@@ -9,8 +9,8 @@ const Dashboard = lazy(() => import('../pages/dashboard'));
 const NotFound = lazy(() => import('../pages/notfound'));
 
 const routes = [
-  { path: '/', element: <Login /> },
-  { path: '/register', element: <Register /> },
+  { path: '/auth/login', element: <Login /> },
+  { path: '/auth/register', element: <Register /> },
   {
     path: '/dashboard',
     element: (
@@ -24,11 +24,17 @@ const routes = [
 
 const AppRoutes = () => {
   const routing = useRoutes(routes);
+  return routing;
+};
+
+const App = () => {
   return (
     <Router>
-      <Suspense fallback={<LoadingScreen />}>{routing}</Suspense>
+      <Suspense fallback={<LoadingScreen />}>
+        <AppRoutes />
+      </Suspense>
     </Router>
   );
 };
 
-export default AppRoutes;
+export default App;
