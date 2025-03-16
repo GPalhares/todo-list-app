@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import './styles.css';
 
 export default function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Nome:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
     <div className="card m-0 p-0 p-sm-5 card-with-shadow">
       <div className="card-body p-0 p-md-4">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h1 className="fw-bold mb-1 text-center">Cadastro</h1>
           <p className="text-muted mb-4">
             Faça seu cadastro com seu melhor email!
@@ -27,11 +26,11 @@ export default function Register() {
             <input
               className="form-control form-control-lg"
               id="name"
-              type="name"
+              type="text"
               placeholder="Nome"
-              value={email}
-              onChange={(e) => setName(e.target.value)}
+              {...register('name', { required: 'Nome é obrigatório' })}
             />
+            {errors.name && <p className="text-error">{errors.name.message}</p>}
           </div>
 
           <div style={{ marginBottom: '6px' }}>
@@ -40,9 +39,17 @@ export default function Register() {
               id="email"
               type="email"
               placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register('email', {
+                required: 'E-mail é obrigatório',
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                  message: 'E-mail inválido',
+                },
+              })}
             />
+            {errors.email && (
+              <p className="text-error">{errors.email.message}</p>
+            )}
           </div>
 
           <div style={{ marginBottom: '6px' }}>
@@ -51,25 +58,37 @@ export default function Register() {
               id="password"
               type="password"
               placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register('password', {
+                required: 'Senha é obrigatória',
+                minLength: {
+                  value: 6,
+                  message: 'Senha deve ter pelo menos 6 caracteres',
+                },
+              })}
             />
+            {errors.password && (
+              <p className="text-error">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="form-check mb-5 text-start">
             <input
               className="form-check-input"
               type="checkbox"
-              id="rememberPassword"
-              checked={acceptedTerms}
-              onChange={() => setAcceptedTerms(!acceptedTerms)}
+              id="acceptedTerms"
+              {...register('acceptedTerms', {
+                required: 'Você deve aceitar os termos',
+              })}
             />
-            <label className="form-check-label" htmlFor="rememberPassword">
+            <label className="form-check-label" htmlFor="acceptedTerms">
               Aceito os{' '}
               <a href="/termos-e-condicoes" className="text-primary">
                 termos e condições
               </a>
             </label>
+            {errors.acceptedTerms && (
+              <p className="text-error">{errors.acceptedTerms.message}</p>
+            )}
           </div>
 
           <button className="btn btn-primary btn-lg w-100">Cadastrar</button>

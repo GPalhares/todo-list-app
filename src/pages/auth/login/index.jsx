@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 import './styles.css';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Remember me:', rememberMe);
+  const onSubmit = (data) => {
+    console.log(data);
   };
 
   return (
     <div className="card m-0 p-0 p-sm-5 card-with-shadow">
       <div className="card-body p-0 p-md-4">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h1 className="fw-bold mb-1 text-center">Todo-List</h1>
           <p className="text-muted mb-4">
             Faça login usando seu email e senha!
@@ -24,33 +24,42 @@ export default function Login() {
 
           <div style={{ marginBottom: '6px' }}>
             <input
+              {...register('email', {
+                required: 'Email é obrigatório',
+                pattern: {
+                  value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+                  message: 'Email inválido',
+                },
+              })}
               className="form-control form-control-lg"
               id="email"
               type="email"
               placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && (
+              <p className="text-error">{errors.email.message}</p>
+            )}
           </div>
 
           <div style={{ marginBottom: '6px' }}>
             <input
+              {...register('password', { required: 'Senha é obrigatória' })}
               className="form-control form-control-lg"
               id="password"
               type="password"
               placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
             />
+            {errors.password && (
+              <p className="text-error">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="form-check mb-5 text-start">
             <input
+              {...register('rememberMe')}
               className="form-check-input"
               type="checkbox"
               id="rememberPassword"
-              checked={rememberMe}
-              onChange={() => setRememberMe(!rememberMe)}
             />
             <label className="form-check-label" htmlFor="rememberPassword">
               Manter conectado
