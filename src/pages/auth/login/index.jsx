@@ -64,7 +64,7 @@ export default function Login() {
           <div className="text-center">
             <p className="text-muted">
               Não tem conta?{' '}
-              <a href="#!" className="text-primary">
+              <a href="/auth/register" className="text-primary">
                 Registre-se
               </a>
             </p>
