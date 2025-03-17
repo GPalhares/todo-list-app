@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { format, isToday } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
 export default function TaskList({
@@ -63,10 +62,11 @@ export default function TaskList({
           {filteredTasks.map((task) => (
             <li
               key={task.id}
-              className="list-group-item d-flex align-items-center justify-content-between py-1 px-3 rounded mb-2"
+              className="d-flex list-group-item align-items-center justify-content-between py-1 px-3 rounded mb-2"
               style={{
-                backgroundColor: '#f1f1f1',
+                border: '1px solid #D9D9D9',
                 width: '100%',
+                minHeight: '60px',
               }}
             >
               <div className="d-flex align-items-center">
@@ -76,8 +76,8 @@ export default function TaskList({
                   checked={task.completed}
                   onChange={() => toggleComplete(task.id)}
                   style={{
-                    width: '24px',
-                    height: '24px',
+                    width: '22px',
+                    height: '22px',
                     cursor: 'pointer',
                   }}
                 />
@@ -101,17 +101,17 @@ export default function TaskList({
                   </div>
 
                   <div className="d-flex justify-content-start">
-                    <small className="text-muted">
-                      {isToday(new Date(task.createdAt))
-                        ? `Hoje às: ${format(
-                            new Date(task.createdAt),
-                            'HH:mm'
-                          )}`
-                        : `Criada em: ${format(
-                            new Date(task.createdAt),
-                            'dd/MM/yyyy'
-                          )}`}
-                    </small>
+                    <div className="d-flex flex-wrap gap-2">
+                      {task?.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="badge bg-primary"
+                          style={{ fontSize: '0.75rem' }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

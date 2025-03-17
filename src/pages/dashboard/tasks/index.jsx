@@ -10,18 +10,21 @@ export default function Tasks() {
       description: 'Lavar a louça',
       createdAt: '2025-03-16T23:02:07.516Z',
       completed: false,
+      tags: [],
     },
     {
       id: 2,
       description: 'Aprender Nest.js',
       createdAt: '2025-03-16T23:03:07.516Z',
       completed: true,
+      tags: [],
     },
     {
       id: 3,
       description: 'Limpar a casa',
       createdAt: '2025-01-16T23:02:07.516Z',
       completed: false,
+      tags: [],
     },
   ]);
   const [open, setOpen] = useState(null);
