@@ -4,29 +4,7 @@ import CreateTask from './components/modal/create';
 import EditTask from './components/modal/edit';
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      description: 'Lavar a louça',
-      createdAt: '2025-03-16T23:02:07.516Z',
-      completed: false,
-      tags: [],
-    },
-    {
-      id: 2,
-      description: 'Aprender Nest.js',
-      createdAt: '2025-03-16T23:03:07.516Z',
-      completed: true,
-      tags: [],
-    },
-    {
-      id: 3,
-      description: 'Limpar a casa',
-      createdAt: '2025-01-16T23:02:07.516Z',
-      completed: false,
-      tags: [],
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
   const [open, setOpen] = useState(null);
 
   const toggleComplete = (id) => {
@@ -50,14 +28,11 @@ export default function Tasks() {
     <div className="d-flex card justify-content-center px-4 px-sm-5 py-5 align-items-center card-with-shadow-border">
       <div
         style={{ width: '100%' }}
-        className="d-flex mb-5 align-items-center justify-content-between"
+        className="d-flex mb-4 align-items-center justify-content-between"
       >
-        <h2 className="fw-bold">Tarefas</h2>
+        <h2 className="fw-bold m-0">Tarefas</h2>
 
-        <button
-          onClick={() => setOpen('newTask')}
-          className="btn btn-primary d-flex align-items-center"
-        >
+        <button onClick={() => setOpen('newTask')} className="btn btn-primary">
           <img
             src="/assets/icons/plus.svg"
             alt="Criar"

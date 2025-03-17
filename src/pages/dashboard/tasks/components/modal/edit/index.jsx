@@ -11,6 +11,7 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
     register,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors },
   } = useForm();
 
@@ -66,7 +67,16 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
                     maxLength="40"
                     {...register('description', {
                       required: 'A tarefa é obrigatória',
+                      minLength: {
+                        value: 5,
+                        message: 'A tarefa deve ter pelo menos 5 caracteres',
+                      },
                     })}
+                    onChange={(e) => {
+                      if (e.target.value.length >= 5) {
+                        clearErrors('description');
+                      }
+                    }}
                   />
                   {errors.description && (
                     <p className="text-error">{errors.description.message}</p>

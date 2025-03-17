@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 export default function TaskList({
   tasks,
@@ -9,13 +10,40 @@ export default function TaskList({
 }) {
   const [filter, setFilter] = useState('all');
   const navigate = useNavigate();
+  const { register, watch } = useForm();
+  const descriptionFilterValue = watch('descriptionFilter');
 
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === 'all') return true;
-    if (filter === 'completed') return task.completed;
-    if (filter === 'inProgress') return !task.completed;
-    return true;
-  });
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      if (
+        filter === 'all' &&
+        (!descriptionFilterValue ||
+          task.description
+            .toLowerCase()
+            .includes(descriptionFilterValue.toLowerCase()))
+      )
+        return true;
+      if (
+        filter === 'completed' &&
+        task.completed &&
+        (!descriptionFilterValue ||
+          task.description
+            .toLowerCase()
+            .includes(descriptionFilterValue.toLowerCase()))
+      )
+        return true;
+      if (
+        filter === 'inProgress' &&
+        !task.completed &&
+        (!descriptionFilterValue ||
+          task.description
+            .toLowerCase()
+            .includes(descriptionFilterValue.toLowerCase()))
+      )
+        return true;
+      return false;
+    });
+  }, [tasks, filter, descriptionFilterValue]);
 
   const filterOptions = [
     { label: 'Todas', value: 'all' },
@@ -30,6 +58,16 @@ export default function TaskList({
 
   return (
     <div className="row justify-content-center">
+      <div className="d-flex justify-content-left mb-3">
+        <input
+          type="text"
+          className="form-control w-100"
+          placeholder="Filtrar por descrição"
+          {...register('descriptionFilter')}
+          style={{ fontSize: '12px' }}
+        />
+      </div>
+
       <div className="d-flex mb-3 justify-content-left">
         {filterOptions.map((option) => (
           <button
@@ -39,7 +77,7 @@ export default function TaskList({
             key={option.value}
             style={{
               borderRadius: '16px',
-              padding: '3px 7px',
+              padding: '1.5px 7px',
               fontSize: '12px',
             }}
             onClick={() => setFilter(option.value)}
@@ -85,15 +123,7 @@ export default function TaskList({
                 <div className="d-flex flex-column ml-5 justify-content-start">
                   <div
                     className="d-flex justify-content-start"
-                    style={{
-                      wordBreak: 'break-word',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 3,
-                      WebkitBoxOrient: 'vertical',
-                      maxWidth: '100%',
-                    }}
+                    style={{ wordBreak: 'break-word' }}
                   >
                     {task.description.length > 300
                       ? `${task.description.substring(0, 300)}...`
@@ -101,12 +131,12 @@ export default function TaskList({
                   </div>
 
                   <div className="d-flex justify-content-start">
-                    <div className="d-flex flex-wrap gap-2">
+                    <div className="d-flex flex-nowrap gap-2">
                       {task?.tags.map((tag, index) => (
                         <span
                           key={index}
                           className="badge bg-primary"
-                          style={{ fontSize: '0.75rem' }}
+                          style={{ fontSize: '0.70rem' }}
                         >
                           {tag}
                         </span>

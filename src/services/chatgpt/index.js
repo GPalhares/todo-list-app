@@ -18,7 +18,7 @@ export const generateTags = async (description, oldTags = []) => {
         messages: [
           {
             role: 'user',
-            content: `Gere 3 tags no formato '#tag1 #tag2 #tag3' que façam sentido com a seguinte tarefa: ${description}${oldTagsString}`,
+            content: `Gere 2 tags no formato '#tag1 #tag2' que façam sentido com a seguinte tarefa: ${description}${oldTagsString}`,
           },
         ],
         max_tokens: 50,
@@ -36,8 +36,8 @@ export const generateTags = async (description, oldTags = []) => {
       .split(' ')
       .map((tag) => tag.trim());
 
-    // Garantir que não tenha mais de 3 tags
-    return tags.slice(0, 3);
+    // Garantir que não tenha mais de 2 tags
+    return tags.slice(0, 2);
   } catch (error) {
     console.error('Erro ao gerar tags:', error);
     return [];

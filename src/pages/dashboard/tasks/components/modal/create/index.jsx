@@ -7,6 +7,7 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
     register,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors },
     watch,
   } = useForm();
@@ -30,6 +31,11 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
 
   const handleDescriptionChange = (e) => {
     const description = e.target.value;
+
+    if (description.length >= 5) {
+      clearErrors('description');
+    }
+
     setShowGenerateButton(description.length >= 5);
   };
 
@@ -65,6 +71,10 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
                   maxLength="40"
                   {...register('description', {
                     required: 'A tarefa é obrigatória',
+                    minLength: {
+                      value: 5,
+                      message: 'A tarefa deve ter pelo menos 5 caracteres',
+                    },
                   })}
                   onChange={handleDescriptionChange}
                 />
