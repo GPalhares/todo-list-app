@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles.css';
 import TaskList from './components/list';
 import CreateTask from './components/modal/create';
 import EditTask from './components/modal/edit';
@@ -9,8 +8,20 @@ export default function Tasks() {
   const [tasks, setTasks] = useState([
     {
       id: 1,
-      description: 'asdasdas',
+      description: 'Lavar a louça',
       createdAt: '2025-03-16T23:02:07.516Z',
+      completed: false,
+    },
+    {
+      id: 2,
+      description: 'Aprender Nest.js',
+      createdAt: '2025-03-16T23:03:07.516Z',
+      completed: true,
+    },
+    {
+      id: 3,
+      description: 'Limpar a casa',
+      createdAt: '2025-01-16T23:02:07.516Z',
       completed: false,
     },
   ]);
@@ -34,10 +45,10 @@ export default function Tasks() {
   };
 
   return (
-    <div className="d-flex justify-content-center card m-0 py-5 align-items-center card-with-shadow">
+    <div className="d-flex card justify-content-center px-4 px-sm-5 py-5 align-items-center card-with-shadow-border">
       <div
         style={{ width: '100%' }}
-        className="d-flex mb-5 align-items-center justify-content-around"
+        className="d-flex mb-5 align-items-center justify-content-between"
       >
         <h2 className="fw-bold">Tarefas</h2>
 

@@ -4,10 +4,8 @@
   font-weight: 400;
   margin: 0 auto;
   padding: 0 auto;
-
   color-scheme: light dark;
   color: #D9D9D9;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -30,7 +28,6 @@ body {
   display: flex;
   place-items: center;
   text-align: center;
-
   min-width: 320px;
   min-height: 100vh;
 }
@@ -38,4 +35,23 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.card-with-shadow-border {
+  border: none;
+}
+
+@media (min-width: 576px) {
+  .card-with-shadow-border {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #D9D9D9;
+    border-radius: 9px;
+    width: 576px;
+  }
+}
+
+.text-error {
+  font-size: 0.8rem;
+  margin-top: 2px;
+  color: #dc3545;
 }

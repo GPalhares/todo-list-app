@@ -30,7 +30,7 @@ export default function TaskList({
   };
 
   return (
-    <div className="px-4 px-sm-5 row justify-content-center">
+    <div className="row justify-content-center">
       <div className="d-flex mb-3 justify-content-left">
         {filterOptions.map((option) => (
           <button
@@ -54,14 +54,16 @@ export default function TaskList({
         <p className="my-2 text-muted">
           {tasks.length === 0
             ? 'Crie sua primeira tarefa para começar!'
-            : 'Não foram encontradas tarefas com esse filtro!'}
+            : `Não foram encontradas tarefas ${filterOptions
+                .find((option) => option.value === filter)
+                ?.label.toLowerCase()}!`}
         </p>
       ) : (
         <ul>
           {filteredTasks.map((task) => (
             <li
               key={task.id}
-              className="list-group-item d-flex align-items-center justify-content-between py-1 px-5 rounded mb-2"
+              className="list-group-item d-flex align-items-center justify-content-between py-1 px-3 rounded mb-2"
               style={{
                 backgroundColor: '#f1f1f1',
                 width: '100%',
@@ -73,21 +75,32 @@ export default function TaskList({
                   className="form-check-input me-3"
                   checked={task.completed}
                   onChange={() => toggleComplete(task.id)}
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    cursor: 'pointer',
+                  }}
                 />
-              </div>
 
-              <div>
-                <div className="d-flex justify-content-left">
-                  {task.description}
+                <div className="d-flex flex-column ml-5 justify-content-start">
+                  <div className="d-flex justify-content-start">
+                    {task.description}
+                  </div>
+
+                  <div className="d-flex justify-content-start">
+                    <small className="text-muted">
+                      {isToday(new Date(task.createdAt))
+                        ? `Hoje às: ${format(
+                            new Date(task.createdAt),
+                            'HH:mm'
+                          )}`
+                        : `Criada em: ${format(
+                            new Date(task.createdAt),
+                            'dd/MM/yyyy'
+                          )}`}
+                    </small>
+                  </div>
                 </div>
-                <small className="text-muted">
-                  {isToday(new Date(task.createdAt))
-                    ? `Hoje às: ${format(new Date(task.createdAt), 'HH:mm')}`
-                    : `Criada em: ${format(
-                        new Date(task.createdAt),
-                        'dd/MM/yyyy HH:mm'
-                      )}`}
-                </small>
               </div>
 
               <div>
@@ -106,6 +119,7 @@ export default function TaskList({
                     height="16"
                   />
                 </button>
+
                 <button
                   style={{
                     backgroundColor: 'transparent',

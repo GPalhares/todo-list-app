@@ -2,12 +2,17 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function CreateTask({ setOpen, tasks, setTasks }) {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => {
     const newTask = {
       id: tasks.length + 1,
-      task: data.task,
+      description: data.description,
       createdAt: new Date(),
       completed: false,
     };
@@ -41,8 +46,12 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
                     required: 'A tarefa é obrigatória',
                   })}
                 />
+                {errors.description && (
+                  <p className="text-error">{errors.description.message}</p>
+                )}
               </div>
             </div>
+
             <div className="modal-footer border-0">
               <button
                 className="btn btn-secondary"

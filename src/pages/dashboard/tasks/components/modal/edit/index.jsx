@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams, useNavigate } from 'react-router-dom'; // Importe o useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function EditTask({ setOpen, tasks, setTasks }) {
   const [taskToEdit, setTaskToEdit] = useState(null);
   const { taskId } = useParams();
-  const navigate = useNavigate(); // Instancia o useNavigate
+  const navigate = useNavigate();
 
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     const task = tasks.find((task) => task.id == taskId);
@@ -22,7 +27,7 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
   const onSubmit = (data) => {
     const updatedTasks = tasks.map((task) =>
       task.id == taskToEdit.id
-        ? { ...task, description: data.description }
+        ? { ...task, description: data.description, completed: data.completed }
         : task
     );
     setTasks(updatedTasks);
@@ -52,7 +57,7 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
 
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="modal-body">
-                <div className="mb-3">
+                <div>
                   <input
                     defaultValue={taskToEdit.description}
                     type="text"
@@ -62,8 +67,25 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
                       required: 'A tarefa é obrigatória',
                     })}
                   />
+                  {errors.description && (
+                    <p className="text-error">{errors.description.message}</p>
+                  )}
+                </div>
+
+                <div className="mt-1 form-check text-start">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    id="completed"
+                    defaultChecked={taskToEdit.completed}
+                    {...register('completed')}
+                  />
+                  <label className="form-check-label" htmlFor="completed">
+                    Marcar como concluída
+                  </label>
                 </div>
               </div>
+
               <div className="modal-footer border-0">
                 <button
                   className="btn btn-secondary"
@@ -72,7 +94,6 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
                 >
                   Fechar
                 </button>
-
                 <button
                   className="btn btn-primary d-flex align-items-center"
                   type="submit"

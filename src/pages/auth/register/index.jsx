@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import './styles.css';
 
 export default function Register() {
   const {
@@ -14,7 +13,7 @@ export default function Register() {
   };
 
   return (
-    <div className="card m-0 p-0 p-sm-5 card-with-shadow">
+    <div className="card m-0 p-0 p-sm-5 card-with-shadow-border">
       <div className="card-body p-0 p-md-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1 className="fw-bold mb-1 text-center">Cadastro</h1>
