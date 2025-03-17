@@ -5,7 +5,7 @@ import LoadingScreen from '../components/loadingScreen';
 const Login = lazy(() => import('../pages/auth/login'));
 const Register = lazy(() => import('../pages/auth/register'));
 const Tasks = lazy(() => import('../pages/dashboard/tasks'));
-const Backoffice = lazy(() => import('../pages/dashboard/backoffice'));
+const Users = lazy(() => import('../pages/dashboard/users'));
 const NotFound = lazy(() => import('../pages/notfound'));
 
 const routes = [
@@ -20,7 +20,7 @@ const routes = [
     path: 'dashboard',
     children: [
       { path: 'tasks/:taskId?', element: <Tasks /> },
-      { path: 'backoffice/:userId?', element: <Backoffice /> },
+      { path: 'users/:userId?', element: <Users /> },
     ],
   },
   { path: '*', element: <NotFound /> },

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskList from './components/list';
 import CreateTask from './components/modal/create';
 import EditTask from './components/modal/edit';

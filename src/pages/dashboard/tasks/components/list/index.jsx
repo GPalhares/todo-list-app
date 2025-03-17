@@ -83,8 +83,21 @@ export default function TaskList({
                 />
 
                 <div className="d-flex flex-column ml-5 justify-content-start">
-                  <div className="d-flex justify-content-start">
-                    {task.description}
+                  <div
+                    className="d-flex justify-content-start"
+                    style={{
+                      wordBreak: 'break-word',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    {task.description.length > 300
+                      ? `${task.description.substring(0, 300)}...`
+                      : task.description}
                   </div>
 
                   <div className="d-flex justify-content-start">

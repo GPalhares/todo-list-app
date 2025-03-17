@@ -63,6 +63,7 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
                     type="text"
                     className="form-control border-2 rounded-3 p-3"
                     placeholder="Digite sua tarefa..."
+                    maxLength="40"
                     {...register('description', {
                       required: 'A tarefa é obrigatória',
                     })}
