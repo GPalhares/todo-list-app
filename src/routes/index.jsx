@@ -7,6 +7,7 @@ const Register = lazy(() => import('../pages/auth/register'));
 const Tasks = lazy(() => import('../pages/dashboard/tasks'));
 const Users = lazy(() => import('../pages/dashboard/users'));
 const NotFound = lazy(() => import('../pages/notfound'));
+const TermsAndConditions = lazy(() => import('../pages/terms'));
 
 const routes = [
   {
@@ -23,6 +24,7 @@ const routes = [
       { path: 'users/:userId?', element: <Users /> },
     ],
   },
+  { path: 'terms', element: <TermsAndConditions /> },
   { path: '*', element: <NotFound /> },
 ];
 

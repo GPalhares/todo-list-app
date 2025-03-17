@@ -17,11 +17,12 @@ export default function Login() {
       <div className="card-body p-0 p-md-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1 className="fw-bold mb-1 text-center">Todo-List</h1>
+
           <p className="text-muted mb-4">
             Faça login usando seu email e senha!
           </p>
 
-          <div style={{ marginBottom: '6px' }}>
+          <div className="mb-2">
             <input
               {...register('email', {
                 required: 'Email é obrigatório',
@@ -40,7 +41,7 @@ export default function Login() {
             )}
           </div>
 
-          <div style={{ marginBottom: '6px' }}>
+          <div className="mb-2">
             <input
               {...register('password', { required: 'Senha é obrigatória' })}
               className="form-control form-control-lg"

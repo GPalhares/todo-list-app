@@ -21,7 +21,7 @@ export default function Register() {
             Faça seu cadastro com seu melhor email!
           </p>
 
-          <div style={{ marginBottom: '6px' }}>
+          <div className="mb-2">
             <input
               className="form-control form-control-lg"
               id="name"
@@ -32,7 +32,7 @@ export default function Register() {
             {errors.name && <p className="text-error">{errors.name.message}</p>}
           </div>
 
-          <div style={{ marginBottom: '6px' }}>
+          <div className="mb-2">
             <input
               className="form-control form-control-lg"
               id="email"
@@ -51,7 +51,7 @@ export default function Register() {
             )}
           </div>
 
-          <div style={{ marginBottom: '6px' }}>
+          <div className="mb-2">
             <input
               className="form-control form-control-lg"
               id="password"
@@ -81,7 +81,7 @@ export default function Register() {
             />
             <label className="form-check-label" htmlFor="acceptedTerms">
               Aceito os{' '}
-              <a href="/termos-e-condicoes" className="text-primary">
+              <a href="/terms" className="text-primary">
                 termos e condições
               </a>
             </label>

@@ -97,8 +97,8 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
 
               {tags.length > 0 && (
                 <div className="mt-4">
-                  <strong>Tags sugeridas:</strong>
-                  <div className="d-flex flex-wrap gap-2">
+                  <strong>Tags geradas:</strong>
+                  <div className="d-flex mt-1 flex-wrap gap-2 justify-content-center">
                     {tags.map((tag, index) => (
                       <span key={index} className="badge bg-primary">
                         {tag}
