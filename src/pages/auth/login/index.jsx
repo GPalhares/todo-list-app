@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useLogin } from '../../../hooks/useLogin';
 
 export default function Login() {
   const {
@@ -8,14 +9,12 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const { login, loading } = useLogin();
 
   return (
     <div className="card m-0 p-0 p-sm-5 card-with-shadow-border">
       <div className="card-body p-0 p-md-4">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(login)}>
           <h1 className="fw-bold mb-1 text-center">Todo-List</h1>
 
           <p className="text-muted mb-4">
@@ -66,7 +65,9 @@ export default function Login() {
             </label>
           </div>
 
-          <button className="btn btn-primary btn-lg w-100">Entrar</button>
+          <button className="btn btn-primary btn-lg w-100" disabled={loading}>
+            {loading ? 'Entrando...' : 'Entrar'}
+          </button>
 
           <hr className="my-4" />
 

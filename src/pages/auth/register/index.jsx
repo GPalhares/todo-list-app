@@ -1,5 +1,5 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useRegister } from '../../../hooks/useRegister';
 
 export default function Register() {
   const {
@@ -8,14 +8,12 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const { register: registerUser, loading } = useRegister();
 
   return (
     <div className="card m-0 p-0 p-sm-5 card-with-shadow-border">
       <div className="card-body p-0 p-md-4">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(registerUser)}>
           <h1 className="fw-bold mb-1 text-center">Cadastro</h1>
           <p className="text-muted mb-4">
             Faça seu cadastro com seu melhor email!
@@ -24,7 +22,6 @@ export default function Register() {
           <div className="mb-2">
             <input
               className="form-control form-control-lg"
-              id="name"
               type="text"
               placeholder="Nome"
               {...register('name', { required: 'Nome é obrigatório' })}
@@ -35,7 +32,6 @@ export default function Register() {
           <div className="mb-2">
             <input
               className="form-control form-control-lg"
-              id="email"
               type="email"
               placeholder="E-mail"
               {...register('email', {
@@ -54,7 +50,6 @@ export default function Register() {
           <div className="mb-2">
             <input
               className="form-control form-control-lg"
-              id="password"
               type="password"
               placeholder="Senha"
               {...register('password', {
@@ -74,12 +69,11 @@ export default function Register() {
             <input
               className="form-check-input"
               type="checkbox"
-              id="acceptedTerms"
               {...register('acceptedTerms', {
                 required: 'Você deve aceitar os termos',
               })}
             />
-            <label className="form-check-label" htmlFor="acceptedTerms">
+            <label className="form-check-label">
               Aceito os{' '}
               <a href="/terms" className="text-primary">
                 termos e condições
@@ -90,7 +84,9 @@ export default function Register() {
             )}
           </div>
 
-          <button className="btn btn-primary btn-lg w-100">Cadastrar</button>
+          <button className="btn btn-primary btn-lg w-100" disabled={loading}>
+            {loading ? 'Cadastrando...' : 'Cadastrar'}
+          </button>
 
           <hr className="my-4" />
 
