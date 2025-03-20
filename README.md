@@ -47,9 +47,8 @@ Este repositório contém o **frontend** da aplicação de To-Do List, desenvolv
 
 ### ⚠️ Atenção:
 
-A funcionalidade de integração com a **OpenAI** só vai funcionar se você acessar a aplicação através do deploy.  
-Acesse a versão hospedada em: [Link do Deploy](https://todo-list-fawn-psi.vercel.app/auth/login)  
-Para testar a integração localmente, será necessário rodar o backend em seu ambiente local.
+A funcionalidade de integração com a **OpenAI** só vai funcionar se você acessar a aplicação através do deploy por causa das variáveis de ambiente.  
+Acesse a versão hospedada em: [Link do Deploy](https://todo-list-fawn-psi.vercel.app/auth/login)
 
 ## Ferramentas e Bibliotecas Utilizadas ⚙️
 
@@ -162,3 +161,7 @@ Para testar a integração localmente, será necessário rodar o backend em seu 
 14. **Uso de `useMemo` para Melhorar a Performance ⚡**:
 
 - Utilize o **hook `useMemo`** nas listas de tarefas e usuários para evitar cálculos desnecessários e melhorar a performance da aplicação. O `useMemo` ajuda a memorizar o valor de variáveis ou funções de forma que não seja recalculado toda vez que o componente é renderizado, garantindo uma experiência mais rápida, especialmente em listas grandes.
+
+---
+
+Se você leu até aqui, muito obrigado! 🙏 Agradeço também à DeMaria pela oportunidade de desenvolver este projeto como parte do processo seletivo. Foi uma experiência incrível e enriquecedora! 🚀
