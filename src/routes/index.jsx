@@ -7,6 +7,7 @@ import AuthGuard from '../components/guards/authGuard';
 import LoadingCircular from '../components/loadingCircular';
 
 const Tasks = lazy(() => import('../pages/dashboard/tasks'));
+const Profile = lazy(() => import('../pages/dashboard/profile'));
 const Users = lazy(() => import('../pages/dashboard/users'));
 const NotFound = lazy(() => import('../pages/notfound'));
 const TermsAndConditions = lazy(() => import('../pages/terms'));
@@ -49,10 +50,18 @@ const routes = [
         ),
       },
       {
-        path: 'users/:userId?',
+        path: 'users',
         element: (
           <AuthGuard>
             <Users />,
+          </AuthGuard>
+        ),
+      },
+      {
+        path: 'profile',
+        element: (
+          <AuthGuard>
+            <Profile />,
           </AuthGuard>
         ),
       },

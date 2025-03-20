@@ -21,7 +21,6 @@ export function TasksProvider({ children }) {
     try {
       const response = await api.get('/tasks/user');
       setTasks(response.data);
-      toast.success('Tarefas carregadas com sucesso!');
     } catch (error) {
       console.error('Erro ao carregar tarefas', error);
     } finally {

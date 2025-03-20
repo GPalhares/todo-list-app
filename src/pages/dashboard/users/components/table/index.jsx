@@ -122,16 +122,14 @@ export default function UsersTable() {
   ) : users.length === 0 ? (
     <p className="my-2 text-muted">{'Nenhum usuário encontrado'}</p>
   ) : (
-    <div style={{ overflowX: 'auto' }}>
-      <DataTable
-        columns={columns}
-        data={users}
-        pagination
-        highlightOnHover
-        pointerOnHover
-        noHeader
-        responsive
-      />
-    </div>
+    <DataTable
+      columns={columns}
+      data={users}
+      pagination
+      highlightOnHover
+      pointerOnHover
+      noHeader
+      responsive
+    />
   );
 }
