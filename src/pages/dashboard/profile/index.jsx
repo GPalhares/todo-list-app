@@ -26,7 +26,7 @@ export default function Profile() {
       setUser(response.data);
       toast.success('Perfil atualizado com sucesso!');
     } catch (error) {
-      toast.error(error.message || 'Erro ao atualizar perfil.');
+      toast.error(error.response.data.message || 'Erro ao atualizar perfil.');
     }
   };
 
@@ -41,72 +41,76 @@ export default function Profile() {
   };
 
   return (
-    <div className="main-container">
-      <div className="d-flex card card-with-shadow-border">
-        <div className="d-flex mb-4  w-100 align-items-center justify-content-between">
-          <h2 className="fw-bold mb-0">Meu Perfil</h2>
-          <button onClick={goBack} className="btn btn-outline-secondary">
-            Voltar
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-2">
-            <input
-              defaultValue={user.name}
-              {...register('name', { required: 'Nome é obrigatório' })}
-              className="form-control form-control-lg"
-              id="name"
-              type="text"
-              placeholder="Nome"
-            />
-            {errors.name && <p className="text-error">{errors.name.message}</p>}
+    user && (
+      <div className="main-container">
+        <div className="d-flex card card-with-shadow-border">
+          <div className="d-flex mb-4  w-100 align-items-center justify-content-between">
+            <h2 className="fw-bold mb-0">Meu Perfil</h2>
+            <button onClick={goBack} className="btn btn-outline-secondary">
+              Voltar
+            </button>
           </div>
 
-          <div className="mb-2">
-            <input
-              defaultValue={user.email}
-              {...register('email', {
-                required: 'Email é obrigatório',
-                pattern: {
-                  value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-                  message: 'Email inválido',
-                },
-              })}
-              className="form-control form-control-lg"
-              id="email"
-              type="email"
-              placeholder="E-mail"
-            />
-            {errors.email && (
-              <p className="text-error">{errors.email.message}</p>
-            )}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-2">
+              <input
+                defaultValue={user.name}
+                {...register('name', { required: 'Nome é obrigatório' })}
+                className="form-control form-control-lg"
+                id="name"
+                type="text"
+                placeholder="Nome"
+              />
+              {errors.name && (
+                <p className="text-error">{errors.name.message}</p>
+              )}
+            </div>
+
+            <div className="mb-2">
+              <input
+                defaultValue={user.email}
+                {...register('email', {
+                  required: 'Email é obrigatório',
+                  pattern: {
+                    value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+                    message: 'Email inválido',
+                  },
+                })}
+                className="form-control form-control-lg"
+                id="email"
+                type="email"
+                placeholder="E-mail"
+              />
+              {errors.email && (
+                <p className="text-error">{errors.email.message}</p>
+              )}
+            </div>
+
+            <button type="submit" className="btn btn-primary btn-lg w-100">
+              Salvar
+            </button>
+          </form>
+
+          <div className="mb-3">
+            <button
+              className="btn btn-outline-primary mt-3"
+              onClick={fetchJoke}
+              disabled={loading}
+            >
+              {loading ? 'Carregando piada...' : 'Gerar Piada'}
+            </button>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-lg w-100">
-            Salvar
-          </button>
-        </form>
+          {joke && <p className="text-muted">{joke}</p>}
+          {error && <p className="text-error">{error}</p>}
 
-        <div className="mb-3">
-          <button
-            className="btn btn-outline-primary mt-3"
-            onClick={fetchJoke}
-            disabled={loading}
-          >
-            {loading ? 'Carregando piada...' : 'Gerar Piada'}
-          </button>
-        </div>
-
-        {joke && <p className="text-muted">{joke}</p>}
-        {error && <p className="text-error">{error}</p>}
-
-        <div className="d-flex w-100 justify-content-end">
-          <button className="btn btn-outline-danger mt-5" onClick={logout}>
-            Logout
-          </button>
+          <div className="d-flex w-100 justify-content-end">
+            <button className="btn btn-outline-danger mt-5" onClick={logout}>
+              Logout
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import TaskList from './components/list';
 import CreateTask from './components/modal/create';
 import EditTask from './components/modal/edit';
-import { useLogout } from '../../../hooks/useLogout';
 import { useTasks } from '../../../contexts/TaskContext';
 import ProfileButton from '../../../components/profileButton';
 
