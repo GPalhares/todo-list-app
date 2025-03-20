@@ -14,21 +14,21 @@ export function useRegister() {
     setLoading(true);
     try {
       const response = await api.post('/auth/register', data);
-      const token = response.data.access_token;
+      const token = response.data.accessToken;
 
-      localStorage.setItem('demaria_token', token);
+      localStorage.setItem('demariaToken', token);
 
       const decoded = jwtDecode(token);
 
-      const { user_type, ...userData } = decoded;
+      const userData = { ...decoded };
 
       setUser(userData);
 
       toast.success('Cadastro realizado com sucesso!');
 
-      if (user_type === 1) {
+      if (userData.userType === 1) {
         navigate('/dashboard/tasks');
-      } else if (user_type === 2) {
+      } else if (userData.userType === 2) {
         navigate('/dashboard/users');
       }
     } catch (error) {

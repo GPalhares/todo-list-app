@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { generateTags } from '../../../../../../services/chatgpt';
+import { useTasks } from '../../../../../../contexts/TaskContext';
+import LoadingCircular from '../../../../../../components/loadingCircular';
 
-export default function CreateTask({ setOpen, tasks, setTasks }) {
+export default function CreateTask({ setOpen }) {
+  const { createTask } = useTasks();
+
   const {
     register,
     handleSubmit,
@@ -14,16 +18,15 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
 
   const [tags, setTags] = useState([]);
   const [showGenerateButton, setShowGenerateButton] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = (data) => {
     const newTask = {
-      id: tasks.length + 1,
       description: data.description,
       createdAt: new Date(),
-      completed: false,
       tags: tags,
     };
-    setTasks([...tasks, newTask]);
+    createTask(newTask);
     setOpen(null);
     reset();
     setTags([]);
@@ -40,11 +43,17 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
   };
 
   const handleGenerateTags = async () => {
+    setLoading(true);
     const description = watch('description');
 
-    const generatedTags = await generateTags(description, tags);
-
-    setTags(generatedTags);
+    try {
+      const generatedTags = await generateTags(description, tags);
+      setTags(generatedTags);
+    } catch (error) {
+      console.error('Erro ao gerar tags', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -78,31 +87,39 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
                   })}
                   onChange={handleDescriptionChange}
                 />
-
                 {errors.description && (
                   <p className="text-error">{errors.description.message}</p>
                 )}
               </div>
 
               {showGenerateButton && (
-                <button
-                  style={{ color: '#0d6efd' }}
-                  type="button"
-                  className="btn btn-text-primary"
-                  onClick={handleGenerateTags}
-                >
-                  <img
-                    src="/assets/icons/magic-wand.svg"
-                    alt="Criar"
-                    width="16"
-                    height="16"
-                  />
-                  {tags.length > 0 ? (
-                    <span className="ms-2">Gerar Novas tags com IA</span>
-                  ) : (
-                    <span className="ms-2">Gerar Tags com IA</span>
-                  )}
-                </button>
+                <div className="d-flex justify-content-center">
+                  <button
+                    style={{ color: '#0d6efd' }}
+                    type="button"
+                    className="btn btn-text-primary d-flex align-items-center"
+                    onClick={handleGenerateTags}
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <LoadingCircular />
+                    ) : (
+                      <>
+                        <img
+                          src="/assets/icons/magic-wand.svg"
+                          alt="Criar"
+                          width="16"
+                          height="16"
+                        />
+                        <span className="ms-2">
+                          {tags.length > 0
+                            ? 'Gerar Novas Tags com IA'
+                            : 'Gerar Tags com IA'}
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </div>
               )}
 
               {tags.length > 0 && (
@@ -127,7 +144,6 @@ export default function CreateTask({ setOpen, tasks, setTasks }) {
               >
                 Fechar
               </button>
-
               <button
                 className="btn btn-primary d-flex align-items-center"
                 type="submit"

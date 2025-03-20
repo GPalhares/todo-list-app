@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const API_URL =
-  import.meta.env.VITE_API_URL || 'http://host.docker.internal:3000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-const getToken = () => localStorage.getItem('token');
+const getToken = () => localStorage.getItem('demariaToken');
 
 // Cria uma instância do Axios
 const api = axios.create({
@@ -16,9 +15,12 @@ const api = axios.create({
 // Intercepta todas as requisições para incluir o token
 api.interceptors.request.use(
   (config) => {
-    const token = getToken();
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Verifica se a rota é de autenticação (login, por exemplo)
+    if (!config.url.includes('/auth')) {
+      const token = getToken();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
@@ -29,13 +31,26 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    // Verifica se a URL da requisição contém 'auth'
+    if (error.config.url.includes('/auth')) {
+      // Se for uma requisição de autenticação, não faz nada no interceptor
+      return Promise.reject(error);
+    }
+
+    // Para outras rotas, trata o erro normalmente
     if (error.response?.status === 401) {
-      console.error('Token inválido ou expirado. Redirecionando para login...');
-      localStorage.removeItem('token');
-      window.location.href = '/auth/login';
+      // Checando a mensagem de erro para saber se é uma falha de autenticação
+      if (error.response?.data?.message?.includes('senha incorreta')) {
+        toast.error('Senha incorreta. Tente novamente!');
+      } else {
+        console.error(
+          'Token inválido ou expirado. Redirecionando para login...'
+        );
+        localStorage.removeItem('demariaToken');
+        // window.location.href = '/auth/login';
+      }
     }
     return Promise.reject(error);
   }
 );
-
 export default api;

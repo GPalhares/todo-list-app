@@ -6,30 +6,32 @@ import { useAuth } from '../contexts/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 
 export function useLogin() {
+  const { setUser } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { setUser } = useAuth();
 
   const login = async (data) => {
     setLoading(true);
+
     try {
       const response = await api.post('/auth/login', data);
-      const token = response.data.access_token;
-      localStorage.setItem('demaria_token', token);
+      const token = response.data.accessToken;
+      localStorage.setItem('demariaToken', token);
 
       const decoded = jwtDecode(token);
 
-      const { user_type, ...userData } = decoded;
+      const userData = { ...decoded };
 
       setUser(userData);
 
       toast.success('Login realizado com sucesso!');
 
-      if (user_type === 1) {
+      if (userData.userType === 1) {
         navigate('/dashboard/tasks');
       }
 
-      if (user_type === 2) {
+      if (userData.userType === 2) {
         navigate('/dashboard/users');
       }
     } catch (error) {

@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, useRoutes, Navigate } from 'react-router-dom';
-import LoadingScreen from '../components/loadingScreen';
 import Login from '../pages/auth/login';
 import Register from '../pages/auth/register';
 import GuestGuard from '../components/guards/guestGuard';
 import AuthGuard from '../components/guards/authGuard';
+import LoadingCircular from '../components/loadingCircular';
 
 const Tasks = lazy(() => import('../pages/dashboard/tasks'));
 const Users = lazy(() => import('../pages/dashboard/users'));
@@ -70,7 +70,7 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <Router>
-      <Suspense fallback={<LoadingScreen />}>
+      <Suspense fallback={<LoadingCircular />}>
         <AppRoutes />
       </Suspense>
     </Router>

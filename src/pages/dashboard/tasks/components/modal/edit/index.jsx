@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTasks } from '../../../../../../contexts/TaskContext';
 
-export default function EditTask({ setOpen, tasks, setTasks }) {
-  const [taskToEdit, setTaskToEdit] = useState(null);
+export default function EditTask({ setOpen }) {
+  const { tasks, updateTask } = useTasks();
   const { taskId } = useParams();
   const navigate = useNavigate();
 
@@ -15,9 +16,13 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
     formState: { errors },
   } = useForm();
 
+  const [taskToEdit, setTaskToEdit] = useState(null);
+
   useEffect(() => {
-    const task = tasks.find((task) => task.id == taskId);
-    setTaskToEdit(task);
+    const task = tasks.find((task) => task.id === taskId);
+    if (task) {
+      setTaskToEdit(task);
+    }
   }, [taskId, tasks]);
 
   const handleClose = () => {
@@ -26,12 +31,10 @@ export default function EditTask({ setOpen, tasks, setTasks }) {
   };
 
   const onSubmit = (data) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id == taskToEdit.id
-        ? { ...task, description: data.description, completed: data.completed }
-        : task
-    );
-    setTasks(updatedTasks);
+    updateTask(taskId, {
+      ...data,
+      completed: data.completed,
+    });
     setOpen(null);
     reset();
     navigate(-1, { replace: true });

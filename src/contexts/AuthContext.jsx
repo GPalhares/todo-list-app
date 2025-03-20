@@ -8,8 +8,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const token = localStorage.getItem('demaria_token');
-  console.log(user);
+  const token = localStorage.getItem('demariaToken');
 
   useEffect(() => {
     if (token) {
@@ -19,11 +18,9 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  const authenticateUser = async (token) => {
+  const authenticateUser = async () => {
     try {
-      const response = await api.get(`/users/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await api.get(`/users/me`);
 
       setUser(response.data);
     } catch (error) {

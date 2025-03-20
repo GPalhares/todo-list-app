@@ -3,28 +3,22 @@ import TaskList from './components/list';
 import CreateTask from './components/modal/create';
 import EditTask from './components/modal/edit';
 import { useLogout } from '../../../hooks/useLogout';
+import { useTasks } from '../../../contexts/TaskContext';
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState([]);
   const [open, setOpen] = useState(null);
+
+  const { tasks, createTask, updateTask } = useTasks();
 
   const { logout } = useLogout();
 
-  const toggleComplete = (id) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
-
   const modals = {
-    newTask: <CreateTask setOpen={setOpen} tasks={tasks} setTasks={setTasks} />,
-    editTask: <EditTask setOpen={setOpen} tasks={tasks} setTasks={setTasks} />,
+    newTask: (
+      <CreateTask setOpen={setOpen} tasks={tasks} createTask={createTask} />
+    ),
+    editTask: (
+      <EditTask setOpen={setOpen} tasks={tasks} updateTask={updateTask} />
+    ),
   };
 
   return (
@@ -38,7 +32,7 @@ export default function Tasks() {
 
           <button
             onClick={() => setOpen('newTask')}
-            className="btn btn-primary"
+            className="btn btn-primary d-flex align-items-center"
           >
             <img
               src="/assets/icons/plus.svg"
@@ -50,12 +44,7 @@ export default function Tasks() {
           </button>
         </div>
 
-        <TaskList
-          tasks={tasks}
-          setOpen={setOpen}
-          toggleComplete={toggleComplete}
-          deleteTask={deleteTask}
-        />
+        <TaskList setOpen={setOpen} />
 
         {open && modals[open]}
       </div>
