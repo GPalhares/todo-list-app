@@ -34,6 +34,23 @@ Este repositório contém o **frontend** da aplicação de To-Do List, desenvolv
 
    http://localhost:5173/
 
+## Funcionalidades 🔑
+
+1. **Adicionar Tarefas** ➕: O usuário pode adicionar novas tarefas à sua lista.
+2. **Marcar Tarefa como Concluída** ✅: O status da tarefa pode ser alterado para "concluída".
+3. **Excluir Tarefas** 🗑️: O usuário pode excluir tarefas. Para usuários comuns, a exclusão é permanente.
+4. **Edição de Tarefas** ✏️: O usuário pode editar o título e a descrição das tarefas.
+5. **Autenticação de Usuário** 🔑: O sistema possui páginas de login e registro para o usuário, com validações de entradas e autenticação JWT.
+6. **Sistema de Back Office para Admin** 👨‍💼: Funcionalidades como visualização de usuários, cópia de ID e soft delete são implementadas.
+7. **Integração com OpenAI** 🤖: Utilização da API da **OpenAI** para gerar **tags para as tarefas** com base no texto digitado. Quando o usuário digita uma tarefa com pelo menos 5 caracteres, é exibido um botão "Gerar Tags com IA", e a IA sugere automaticamente 2 tags relacionadas à tarefa.
+8. **Integração com API de Piadas Nerds** 😂: Conexão com a API pública **official-joke-api.appspot.com** para fornecer **piadas nerds aleatórias**. O usuário pode clicar em um botão para receber uma piada de forma divertida e interativa (Esse botão se encontra na página de Profile).
+
+### ⚠️ Atenção:
+
+A funcionalidade de integração com a **OpenAI** só vai funcionar se você acessar a aplicação através do deploy.  
+Acesse a versão hospedada em: [Link do Deploy](https://todo-list-fawn-psi.vercel.app/auth/login)  
+Para testar a integração localmente, será necessário rodar o backend em seu ambiente local.
+
 ## Ferramentas e Bibliotecas Utilizadas ⚙️
 
 1. **React** ⚛️:
@@ -145,14 +162,3 @@ Este repositório contém o **frontend** da aplicação de To-Do List, desenvolv
 14. **Uso de `useMemo` para Melhorar a Performance ⚡**:
 
 - Utilize o **hook `useMemo`** nas listas de tarefas e usuários para evitar cálculos desnecessários e melhorar a performance da aplicação. O `useMemo` ajuda a memorizar o valor de variáveis ou funções de forma que não seja recalculado toda vez que o componente é renderizado, garantindo uma experiência mais rápida, especialmente em listas grandes.
-
-## Funcionalidades 🔑
-
-1. **Adicionar Tarefas** ➕: O usuário pode adicionar novas tarefas à sua lista.
-2. **Marcar Tarefa como Concluída** ✅: O status da tarefa pode ser alterado para "concluída".
-3. **Excluir Tarefas** 🗑️: O usuário pode excluir tarefas. Para usuários comuns, a exclusão é permanente.
-4. **Edição de Tarefas** ✏️: O usuário pode editar o título e a descrição das tarefas.
-5. **Autenticação de Usuário** 🔑: O sistema possui páginas de login e registro para o usuário, com validações de entradas e autenticação JWT.
-6. **Sistema de Back Office para Admin** 👨‍💼: Funcionalidades como visualização de usuários, cópia de ID e soft delete são implementadas.
-7. **Integração com OpenAI** 🤖: Utilização da API da **OpenAI** para gerar **tags para as tarefas** com base no texto digitado. Quando o usuário digita uma tarefa com pelo menos 5 caracteres, é exibido um botão "Gerar Tags com IA", e a IA sugere automaticamente 2 tags relacionadas à tarefa.
-8. **Integração com API de Piadas Nerds** 😂: Conexão com a API pública **official-joke-api.appspot.com** para fornecer **piadas nerds aleatórias**. O usuário pode clicar em um botão para receber uma piada de forma divertida e interativa (Esse botão se encontra na página de Profile).
