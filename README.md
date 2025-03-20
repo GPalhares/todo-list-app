@@ -48,7 +48,8 @@ Este repositório contém o **frontend** da aplicação de To-Do List, desenvolv
 ### ⚠️ Atenção:
 
 A funcionalidade de integração com a **OpenAI** só vai funcionar se você acessar a aplicação através do deploy por causa das variáveis de ambiente.  
-Acesse a versão hospedada em: [Link do Deploy](https://todo-list-fawn-psi.vercel.app/auth/login)
+Acesse a versão hospedada em: [Link do Deploy](https://todo-list-fawn-psi.vercel.app/)
+Somente o front-end está deployado; você ainda vai precisar rodar o backend na sua máquina!
 
 ## Ferramentas e Bibliotecas Utilizadas ⚙️
 
