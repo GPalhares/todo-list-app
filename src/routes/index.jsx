@@ -79,7 +79,13 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <Router>
-      <Suspense fallback={<LoadingCircular />}>
+      <Suspense
+        fallback={
+          <div className="main-container">
+            <LoadingCircular />
+          </div>
+        }
+      >
         <AppRoutes />
       </Suspense>
     </Router>
