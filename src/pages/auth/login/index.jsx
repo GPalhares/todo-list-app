@@ -55,6 +55,7 @@ export default function Login() {
 
           <div className="form-check mb-5 text-start">
             <input
+              defaultChecked
               {...register('rememberMe')}
               className="form-check-input"
               type="checkbox"
@@ -65,7 +66,11 @@ export default function Login() {
             </label>
           </div>
 
-          <button className="btn btn-primary btn-lg w-100" disabled={loading}>
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg w-100"
+            disabled={loading}
+          >
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
 

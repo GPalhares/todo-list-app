@@ -2,10 +2,10 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, useRoutes, Navigate } from 'react-router-dom';
 import LoadingScreen from '../components/loadingScreen';
 import Login from '../pages/auth/login';
-import GuestGuard from '../guards/guestGuard';
-import AuthGuard from '../guards/authGuard';
+import Register from '../pages/auth/register';
+import GuestGuard from '../components/guards/guestGuard';
+import AuthGuard from '../components/guards/authGuard';
 
-const Register = lazy(() => import('../pages/auth/register'));
 const Tasks = lazy(() => import('../pages/dashboard/tasks'));
 const Users = lazy(() => import('../pages/dashboard/users'));
 const NotFound = lazy(() => import('../pages/notfound'));

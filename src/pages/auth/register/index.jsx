@@ -67,6 +67,7 @@ export default function Register() {
 
           <div className="form-check mb-5 text-start">
             <input
+              defaultChecked
               className="form-check-input"
               type="checkbox"
               {...register('acceptedTerms', {
@@ -84,7 +85,11 @@ export default function Register() {
             )}
           </div>
 
-          <button className="btn btn-primary btn-lg w-100" disabled={loading}>
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg w-100"
+            disabled={loading}
+          >
             {loading ? 'Cadastrando...' : 'Cadastrar'}
           </button>
 

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { toast } from 'react-toastify';
+import { useAuth } from '../contexts/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 
 export function useLogin() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const login = async (data) => {
     setLoading(true);
@@ -15,19 +18,23 @@ export function useLogin() {
       localStorage.setItem('demaria_token', token);
 
       const decoded = jwtDecode(token);
-      const userType = decoded.user_type;
 
-      if (userType === 1) {
+      const { user_type, ...userData } = decoded;
+
+      setUser(userData);
+
+      toast.success('Login realizado com sucesso!');
+
+      if (user_type === 1) {
         navigate('/dashboard/tasks');
       }
 
-      if (userType === 2) {
+      if (user_type === 2) {
         navigate('/dashboard/users');
       }
     } catch (error) {
-      console.error(
-        'Erro no login:',
-        error.response?.data?.message || error.message
+      toast.error(
+        error.response?.data?.message || 'Erro ao fazer login, tente novamente!'
       );
     } finally {
       setLoading(false);
