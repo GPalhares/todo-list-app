@@ -39,7 +39,7 @@ Este repositório contém o **frontend** da aplicação de To-Do List, desenvolv
 1. **Adicionar Tarefas** ➕: O usuário pode adicionar novas tarefas à sua lista.
 2. **Marcar Tarefa como Concluída** ✅: O status da tarefa pode ser alterado para "concluída".
 3. **Excluir Tarefas** 🗑️: O usuário pode excluir tarefas. Para usuários comuns, a exclusão é permanente.
-4. **Edição de Tarefas** ✏️: O usuário pode editar o título e a descrição das tarefas.
+4. **Edição de Tarefas** ✏️: O usuário pode editar o status e a descrição das tarefas.
 5. **Autenticação de Usuário** 🔑: O sistema possui páginas de login e registro para o usuário, com validações de entradas e autenticação JWT.
 6. **Sistema de Back Office para Admin** 👨‍💼: Funcionalidades como visualização de usuários, cópia de ID e soft delete são implementadas.
 7. **Integração com OpenAI** 🤖: Utilização da API da **OpenAI** para gerar **tags para as tarefas** com base no texto digitado. Quando o usuário digita uma tarefa com pelo menos 5 caracteres, é exibido um botão "Gerar Tags com IA", e a IA sugere automaticamente 2 tags relacionadas à tarefa.
